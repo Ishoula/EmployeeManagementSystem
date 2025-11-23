@@ -46,7 +46,7 @@ const ListEmployeeComponent = () => {
           <h1 className='title'>Employee roster</h1>
           <p className='description'>Manage your team members, track contact details, and keep records tidy.</p>
         </div>
-        <button className='btn btn-gradient btn-pill shadow-soft' onClick={addNewEmployee}>
+        <button className='btn btn-gradient btn-pill shadow-soft text-white' onClick={addNewEmployee}>
           + Add employee
         </button>
       </div>
