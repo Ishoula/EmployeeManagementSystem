@@ -2,13 +2,14 @@ import React from 'react'
 
 const HeaderComponent = () => {
   return (
-    <div>
-      <header>
-        <nav className='navbar navbar-dark bg-dark'>
-            <a href="https://www.javaguides.net" className='navbar-brand '>Employee Management System</a>
-        </nav>
-      </header>
-    </div>
+    <header className='app-header'>
+      <nav className='navbar glass-nav'>
+        <div className='container d-flex flex-column flex-md-row align-items-md-center gap-2 gap-md-3'>
+          <a href='https://www.linkedin.com/in/ishema-shimwa-shoulamite-a43b25218/' className='navbar-brand'>Employee Management System</a>
+          <span className='navbar-text'>Streamline employee records with clarity and ease.</span>
+        </div>
+      </nav>
+    </header>
   )
 }
 

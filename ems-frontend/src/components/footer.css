@@ -1,0 +1,47 @@
+.footer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 0;
+  margin-top: 0;
+  color: white;
+  text-align: center;
+
+  /* Background that blends smoothly with the wave */
+  background: linear-gradient(
+    180deg,
+    #001e72 0%,
+    #00298a 45%,
+    #003bbf 100%
+  );
+}
+
+/* Wave container */
+.footer-wave {
+  width: 100%;
+  height: 200px;
+  line-height: 0;
+}
+
+.footer-wave svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Content under the wave */
+.footer-content {
+  padding: 40px 20px;
+}
+
+.footer-content h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.footer-content p {
+  margin-top: 10px;
+  font-size: 14px;
+  opacity: 0.85;
+}

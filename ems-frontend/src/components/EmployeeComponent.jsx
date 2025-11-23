@@ -3,7 +3,6 @@ import { createEmployee, getEmployee, updateEmployee } from '../service/Employee
 import { useNavigate, useParams } from 'react-router-dom'
 
 const EmployeeComponent = () => {
-
   const navigator = useNavigate()
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -16,17 +15,17 @@ const EmployeeComponent = () => {
     email: ''
   })
 
-
   useEffect(() => {
-
     if (id) {
-      getEmployee(id).then((response) => {
-        setFirstName(response.data.firstName)
-        setLastName(response.data.lastName)
-        setEmail(response.data.email)
-      }).catch((error) => {
-        console.error(error)
-      })
+      getEmployee(id)
+        .then((response) => {
+          setFirstName(response.data.firstName)
+          setLastName(response.data.lastName)
+          setEmail(response.data.email)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
     }
   }, [id])
 
@@ -35,17 +34,18 @@ const EmployeeComponent = () => {
 
     if (validateForm()) {
       const employee = { firstName, lastName, email }
-      console.log(employee)
       if (id) {
-        updateEmployee(id, employee).then((response) => {
-          console.log(response.data)
-          navigator('/employees')
-        }).catch((error) => console.error(error))
+        updateEmployee(id, employee)
+          .then(() => {
+            navigator('/employees')
+          })
+          .catch((error) => console.error(error))
       } else {
-        createEmployee(employee).then((response) => {
-          console.log(response.data)
-          navigator('/employees')
-        }).catch((error) => console.error(error))
+        createEmployee(employee)
+          .then(() => {
+            navigator('/employees')
+          })
+          .catch((error) => console.error(error))
       }
     }
   }
@@ -78,74 +78,85 @@ const EmployeeComponent = () => {
     return valid
   }
 
-  function pageTitle() {
-    if (id) {
-      return <h2 className='text-center'>Update Employee</h2>
-    }
-    else {
-      return <h2 className='text-center'>Add Employee</h2>
-    }
-  }
+  const pageCopy = id
+    ? {
+        subtitle: 'Edit profile',
+        title: 'Update employee',
+        description: 'Modify employee details and keep records aligned with your latest information.'
+      }
+    : {
+        subtitle: 'New teammate',
+        title: 'Add employee',
+        description: 'Create a profile to welcome someone new to the organisation.'
+      }
+
   return (
-    <div className='container'>
-      <div className="row">
-        <div className="card  col-md-6 offset-md-3 offset-md-3">
-          {pageTitle()}
-          <div className="card-body">
-            <form action="">
-              <div className='form-group mb-2'>
-                <label className='form-label'>FirstName: </label>
-                <input
-                  type="text"
-                  placeholder='Enter your firstName'
-                  name='firstName'
-                  value={firstName}
-                  className={`form-control ${errors.firstName ? 'is-invalid' : ''}`}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-
-                {errors.firstName && <div className='invalid-feedback'>{errors.firstName}</div>}
-
-              </div>
-              <div className='form-group mb-2'>
-                <label className='form-label'>LastName: </label>
-                <input
-                  type="text"
-                  placeholder='Enter your lastName'
-                  name='lastName'
-                  value={lastName}
-                  className={`form-control ${errors.lastName ? 'is-invalid' : ''}`}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-
-                {errors.lastName && <div className='invalid-feedback'>{errors.lastName}</div>}
-
-              </div>
-              <div className='form-group mb-2'>
-                <label className='form-label'>Email: </label>
-                <input
-                  type="text"
-                  placeholder='Enter your email'
-                  name='email'
-                  value={email}
-                  className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-
-                {errors.email && <div className='invalid-feedback'>{errors.email}</div>}
-
-              </div>
-
-
-              <button className='btn btn-success' onClick={saveOrUpdateEmployee}>Submit</button>
-              
-            </form>
-          </div>
-
+    <section className='page-section'>
+      <div className='page-header'>
+        <div>
+          <p className='subtitle'>{pageCopy.subtitle}</p>
+          <h1 className='title'>{pageCopy.title}</h1>
+          <p className='description'>{pageCopy.description}</p>
         </div>
       </div>
 
-    </div>
+      <div className='card shadow-soft mt-4'>
+        <div className='card-body p-4 p-md-5'>
+          <form>
+            <div className='form-group mb-4'>
+              <label className='form-label' htmlFor='firstName'>First name</label>
+              <input
+                id='firstName'
+                type='text'
+                placeholder='e.g. Jane'
+                name='firstName'
+                value={firstName}
+                className={`form-control ${errors.firstName ? 'is-invalid' : ''}`}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              {errors.firstName && <div className='invalid-feedback'>{errors.firstName}</div>}
+            </div>
+
+            <div className='form-group mb-4'>
+              <label className='form-label' htmlFor='lastName'>Last name</label>
+              <input
+                id='lastName'
+                type='text'
+                placeholder='e.g. Doe'
+                name='lastName'
+                value={lastName}
+                className={`form-control ${errors.lastName ? 'is-invalid' : ''}`}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+              {errors.lastName && <div className='invalid-feedback'>{errors.lastName}</div>}
+            </div>
+
+            <div className='form-group mb-4'>
+              <label className='form-label' htmlFor='email'>Email</label>
+              <input
+                id='email'
+                type='email'
+                placeholder='e.g. jane.doe@company.com'
+                name='email'
+                value={email}
+                className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              {errors.email && <div className='invalid-feedback'>{errors.email}</div>}
+            </div>
+
+            <div className='form-actions'>
+              <button type='button' className='btn btn-light-soft btn-pill' onClick={() => navigator('/employees')}>
+                Cancel
+              </button>
+              <button type='submit' className='btn btn-gradient btn-pill' onClick={saveOrUpdateEmployee}>
+                {id ? 'Save changes' : 'Create employee'}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
   )
 }
 
