@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { createEmployee, getEmployee, updateEmployee } from '../service/EmployeeService'
+import { createEmployee, getEmployee, updateEmployee } from '../service/EmployeeService.js'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const EmployeeComponent = () => {
