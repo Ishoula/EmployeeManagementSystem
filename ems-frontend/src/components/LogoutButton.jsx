@@ -11,7 +11,7 @@ const LogoutButton = () => {
   };
 
   return (
-    <button className="btn btn-light-soft btn-pill" onClick={handleLogout}>
+    <button className="btn btn-light-soft btn-pill" style={{color:'white'}}onClick={handleLogout}>
       Logout
     </button>
   );

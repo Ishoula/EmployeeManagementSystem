@@ -44,8 +44,7 @@ const EmployeeComponent = () => {
         createEmployee(employee)
           .then(() => {
             navigator('/employees')
-          })
-          .catch((error) => console.error(error))
+          }).catch((error) => console.error(error))
       }
     }
   }
@@ -146,10 +145,10 @@ const EmployeeComponent = () => {
             </div>
 
             <div className='form-actions'>
-              <button type='button' className='btn btn-light-soft btn-pill' onClick={() => navigator('/employees')}>
+              <button type='button' className='btn btn-light-soft btn-pill text' onClick={() => navigator('/employees')}>
                 Cancel
               </button>
-              <button type='submit' className='btn btn-gradient btn-pill' onClick={saveOrUpdateEmployee}>
+              <button type='submit' className='btn btn-gradient btn-pill text' onClick={saveOrUpdateEmployee} style={{color:'white'}}>
                 {id ? 'Save changes' : 'Create employee'}
               </button>
             </div>
